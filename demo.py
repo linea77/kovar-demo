@@ -116,7 +116,7 @@ if __name__ == '__main__':
             else :
                 image=None
                 show_image(Image.open('./src/default_image.png'))
-            st.markdown(f'<p class="option-text option-border">H1: {h2}</p>', unsafe_allow_html=True)
+            st.markdown(f'<p class="option-text option-border">H2: {h2}</p>', unsafe_allow_html=True)
             st.markdown(f'<p class="option-text option-border">O2: {o2}</p>', unsafe_allow_html=True)
     st.divider()
     
