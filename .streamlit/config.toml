@@ -1,5 +1,7 @@
 [server]
 enableXsrfProtection = false
 enableCORS = false
+headless = true
+port = 8501
 [theme]
 base="light"
