@@ -30,17 +30,17 @@ st.markdown("""<style>
 
 @st.cache_resource(show_spinner=False)
 def load_model():
-    with st.status("Please wait ...", expanded=True) as status:
-        if not os.path.exists(st.secrets.model.output):
-            st.write("Downloading model...")
-            gdown.download(id=st.secrets.model.file_id, output=st.secrets.model.output, quiet=False)
-        st.write("Loading model...")
+    # with st.status("Please wait ...", expanded=True) as status:
+    if not os.path.exists(st.secrets.model.output):
+        st.write("Downloading model...")
+        gdown.download(id=st.secrets.model.file_id, output=st.secrets.model.output, quiet=False)
+    with st.spinner("Loading model..."):
         baseline_model = "koclip/koclip-base-pt"
         model = AutoModel.from_pretrained(baseline_model)
         processor = AutoProcessor.from_pretrained(baseline_model)
         model.load_state_dict(torch.load(st.secrets.model.output, map_location='cpu')['model_state_dict'])
-        status.update(label="Complete!", state="complete", expanded=False)
-        return model, processor
+        # status.update(label="Complete!", state="complete", expanded=False)
+    return model, processor
     
 def show_image(image:Image):
     image = ImageOps.exif_transpose(image)
@@ -58,7 +58,7 @@ def show_details(probs=torch.tensor):
 
 if __name__ == '__main__':
     # Title
-    st.title('Korean Visual Abductive Reasning')
+    st.title('Korean Visual Abductive Reasoning')
 
     # Side-bar ( user input )
     with st.sidebar:
